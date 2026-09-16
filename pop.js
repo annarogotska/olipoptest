@@ -133,6 +133,10 @@
   const miniCartPrice = $("miniCartPrice");
   const miniCartBtn = $("miniCartBtn");
   const ymalGrid = $("ymalGrid");
+  const mixPicker = $("mixPicker");
+  const mixTotalEl = $("mixTotal");
+  const mixTotalWrap = document.querySelector(".p-mix__total");
+  const buyStage = document.querySelector(".p-buy__stage");
 
   if (packRow && freqRow && qtyValue) {
     let pack = 12;
@@ -140,6 +144,7 @@
     let qty = 1;
     let cartItems = 0;
     let flavor = "blackberry-vanilla";
+    const mixCounts = {};
 
     if (swatchRow) {
       swatchRow.addEventListener("click", (e) => {
@@ -192,12 +197,66 @@
       });
     }
 
+    function mixTotalCount() {
+      return Object.keys(FLAVORS).reduce((sum, key) => sum + (mixCounts[key] || 0), 0);
+    }
+
+    function renderMix() {
+      if (!mixPicker) return;
+      const total = mixTotalCount();
+      Object.keys(FLAVORS).forEach((key) => {
+        const el = $("mixCount-" + key);
+        if (el) el.textContent = String(mixCounts[key] || 0);
+      });
+      if (mixTotalEl) mixTotalEl.textContent = String(total);
+      if (mixTotalWrap) mixTotalWrap.classList.toggle("is-complete", total === 12);
+      const atMax = total >= 12;
+      mixPicker.querySelectorAll(".p-mix-item__plus").forEach((b) => { b.disabled = atMax; });
+    }
+
+    function updateVisualMode() {
+      const isMix = pack === "mix";
+      if (swatchRow) swatchRow.hidden = isMix;
+      if (buyStage) buyStage.hidden = isMix;
+      if (mixPicker) mixPicker.hidden = !isMix;
+
+      const buySection = $("buy");
+      if (isMix) {
+        if (buyTitle) buyTitle.textContent = "Build Your Mix";
+        if (buyDesc) buyDesc.textContent = "Pick any combination of our 7 flavors — 12 cans total, one price.";
+        if (buySection) buySection.style.backgroundColor = "#76238E";
+      } else {
+        const f = FLAVORS[flavor];
+        if (buyTitle) buyTitle.textContent = f.name;
+        if (buyDesc) buyDesc.textContent = f.desc;
+        if (buySection) buySection.style.backgroundColor = f.bg;
+      }
+    }
+
+    if (mixPicker) {
+      mixPicker.addEventListener("click", (e) => {
+        const plusBtn = e.target.closest(".p-mix-item__plus");
+        const minusBtn = e.target.closest(".p-mix-item__minus");
+        if (!plusBtn && !minusBtn) return;
+        const key = (plusBtn || minusBtn).dataset.flavor;
+        if (plusBtn) {
+          if (mixTotalCount() >= 12) return;
+          mixCounts[key] = (mixCounts[key] || 0) + 1;
+        } else {
+          mixCounts[key] = Math.max(0, (mixCounts[key] || 0) - 1);
+        }
+        renderMix();
+        render();
+      });
+    }
+
     function render() {
-      const p = PRICES[pack];
+      const isMix = pack === "mix";
+      const p = PRICES[isMix ? 12 : pack];
       const f = FLAVORS[flavor];
 
       packRow.querySelectorAll("button").forEach((b) => {
-        const on = Number(b.dataset.pack) === pack;
+        const on = b.dataset.pack === String(pack);
         b.classList.toggle("is-active", on);
         b.setAttribute("aria-checked", String(on));
       });
@@ -216,15 +275,19 @@
       cartTotal.textContent = money(total);
 
       const freqLabel = freq === "sub" ? "Subscribe" : "One Time";
-      if (miniCartName) miniCartName.textContent = f.name;
-      if (miniCartSub) miniCartSub.textContent = (pack === 1 ? "1 Can" : "12 Pack") + " · " + freqLabel + (qty > 1 ? " · ×" + qty : "");
+      const packLabel = pack === 1 ? "1 Can" : isMix ? "Mix 12" : "12 Pack";
+      if (miniCartName) miniCartName.textContent = isMix ? "Custom Mix" : f.name;
+      if (miniCartSub) miniCartSub.textContent = packLabel + " · " + freqLabel + (qty > 1 ? " · ×" + qty : "");
       if (miniCartPrice) miniCartPrice.textContent = money(total);
+
+      if (addToCartBtn) addToCartBtn.disabled = isMix && mixTotalCount() !== 12;
     }
 
     packRow.addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-pack]");
       if (!btn) return;
-      pack = Number(btn.dataset.pack);
+      pack = btn.dataset.pack === "mix" ? "mix" : Number(btn.dataset.pack);
+      updateVisualMode();
       render();
     });
 
@@ -269,6 +332,7 @@
     }
 
     renderYmal();
+    renderMix();
     render();
   }
 
@@ -287,6 +351,75 @@
     window.addEventListener("resize", schedule);
     schedule();
   }
+
+  /* ---------- Ingredient orbit: continuous 3D carousel ---------- */
+  (function initIngredientOrbit() {
+    const orbit = document.querySelector(".p-ingr-orbit");
+    const stage = $("ingrStage");
+    if (!orbit || !stage) return;
+    const cards = stage.querySelectorAll(".p-ingr-card");
+    if (!cards.length) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const n = cards.length;
+    // Parameters mirror the reference InfiniteSpiral component
+    const radius = 170;
+    const verticalSpacing = 60;
+    const centerScale = 1.2;
+    const edgeBlur = 6;
+    const edgeFade = 0.3;
+    const orbitSpeed = 22; // degrees per second (~ speed prop)
+    const riseSpeed = 46; // px per second, direction="up"
+
+    const vSpan = n * verticalSpacing;
+    const vMargin = 70;
+    let angle = 0;
+    let paused = false;
+    let last = performance.now();
+    const yOffsets = Array.from({ length: n }, (_, i) => (i / n) * vSpan - vSpan / 2);
+
+    orbit.addEventListener("mouseenter", () => { paused = true; });
+    orbit.addEventListener("mouseleave", () => { paused = false; });
+
+    function layout() {
+      cards.forEach((card, i) => {
+        const a = angle + (360 / n) * i;
+        const rad = (a * Math.PI) / 180;
+        const z = Math.cos(rad) * radius;
+        const x = Math.sin(rad) * radius;
+        const y = yOffsets[i];
+        const depth = (z + radius) / (2 * radius); // 0 = farthest back, 1 = closest front
+        const scale = 0.7 + (centerScale - 0.7) * depth;
+        const edgeDist = Math.abs(y) - vSpan / 2;
+        const vFade = edgeDist > 0 ? Math.max(0, 1 - edgeDist / vMargin) : 1;
+        const opacity = (edgeFade + (1 - edgeFade) * depth) * vFade;
+        const blur = (1 - depth) * edgeBlur;
+        card.style.transform = "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px," + z.toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";
+        card.style.opacity = opacity.toFixed(2);
+        card.style.filter = "blur(" + blur.toFixed(1) + "px)";
+        card.style.zIndex = String(Math.round(z));
+      });
+    }
+
+    function tick(now) {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      if (!paused) {
+        angle += orbitSpeed * dt;
+        const wrapAt = vSpan / 2 + vMargin;
+        for (let i = 0; i < n; i++) {
+          yOffsets[i] -= riseSpeed * dt;
+          if (yOffsets[i] < -wrapAt) yOffsets[i] += vSpan + vMargin * 2;
+        }
+      }
+      layout();
+      requestAnimationFrame(tick);
+    }
+
+    layout();
+    requestAnimationFrame(tick);
+  })();
 
   /* ---------- Newsletter signup ---------- */
   (function initSignup() {

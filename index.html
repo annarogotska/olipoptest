@@ -65,6 +65,65 @@
     </a>
   </section>
 
+
+  <!-- ---------- Ingredients: recipe-card index ---------- -->
+  <section id="ingredients" class="p-ingredients">
+    <div class="p-grain" aria-hidden="true"></div>
+    <div class="p-wrap">
+      <span class="p-eyebrow">What's actually inside</span>
+      <h2 class="p-section-title">One can.<br />Seven ingredients.<br />Zero mystery.</h2>
+      <p class="p-body p-ingredients__lede">Seven plants, one can. Hover to pause, or just let them turn.</p>
+
+      <div class="p-ingr-orbit">
+        <div class="p-ingr-orbit__stage" id="ingrStage">
+          <article class="p-ingr-card">
+            <div class="p-ingr-card__photo"><img src="public/ingredients/chicory-root.jpeg" alt="Chicory root" loading="lazy" /></div>
+            <span class="p-ingr-card__tag">01 · Fiber source</span>
+            <h3 class="p-ingr-card__name">Chicory root</h3>
+            <p class="p-ingr-card__note">Roasted as a coffee stand-in back when real coffee was rationed. Here it's inulin — food for the gut bacteria you've already got.</p>
+          </article>
+          <article class="p-ingr-card">
+            <div class="p-ingr-card__photo"><img src="public/ingredients/cassava-root.jpeg" alt="Cassava root" loading="lazy" /></div>
+            <span class="p-ingr-card__tag">02 · Fiber source</span>
+            <h3 class="p-ingr-card__name">Cassava root</h3>
+            <p class="p-ingr-card__note">A starchy tuber that's a staple food across the tropics. In this can, it's doing most of the heavy lifting behind the 9g.</p>
+          </article>
+          <article class="p-ingr-card">
+            <div class="p-ingr-card__photo"><img src="public/ingredients/jerusalem-artichoke.jpeg" alt="Jerusalem artichoke root" loading="lazy" /></div>
+            <span class="p-ingr-card__tag">03 · Fiber source</span>
+            <h3 class="p-ingr-card__name">Jerusalem artichoke</h3>
+            <p class="p-ingr-card__note">No relation to Jerusalem or artichokes — it's a sunflower's tuber, and one of the richest natural sources of inulin around.</p>
+          </article>
+          <article class="p-ingr-card">
+            <div class="p-ingr-card__photo"><img src="public/ingredients/nopal-cactus.jpeg" alt="Nopal cactus paddle" loading="lazy" /></div>
+            <span class="p-ingr-card__tag">04 · Botanical*</span>
+            <h3 class="p-ingr-card__name">Nopal cactus</h3>
+            <p class="p-ingr-card__note">The paddle of the prickly pear — grilled, diced, and eaten across Mexico for centuries. Here, purely for its fiber.</p>
+          </article>
+          <article class="p-ingr-card">
+            <div class="p-ingr-card__photo"><img src="public/ingredients/marshmallow-root.jpeg" alt="Marshmallow root" loading="lazy" /></div>
+            <span class="p-ingr-card__tag">05 · Botanical*</span>
+            <h3 class="p-ingr-card__name">Marshmallow root</h3>
+            <p class="p-ingr-card__note">Yes — the actual plant the campfire kind was originally named after, long before it was just sugar and gelatin.</p>
+          </article>
+          <article class="p-ingr-card">
+            <div class="p-ingr-card__photo"><img src="public/ingredients/calendula-flower.jpeg" alt="Calendula flower" loading="lazy" /></div>
+            <span class="p-ingr-card__tag">06 · Botanical*</span>
+            <h3 class="p-ingr-card__name">Calendula flower</h3>
+            <p class="p-ingr-card__note">Pot marigold, in botanist terms — the same cheerful orange bloom gardeners grow for looks. Included as a botanical extract.</p>
+          </article>
+          <article class="p-ingr-card">
+            <div class="p-ingr-card__photo"><img src="public/ingredients/kudzu-root.jpeg" alt="Kudzu root" loading="lazy" /></div>
+            <span class="p-ingr-card__tag">07 · Botanical*</span>
+            <h3 class="p-ingr-card__name">Kudzu root</h3>
+            <p class="p-ingr-card__note">A vine so fast-growing it earned the nickname "the plant that ate the South." Here, only a trace botanical extract.</p>
+          </article>
+        </div>
+      </div>
+      <p class="p-ingredients__note">*Extract. "Supports Digestive Health" per the product label — not medical advice.</p>
+    </div>
+  </section>
+
   <!-- ---------- Buy box ---------- -->
   <section id="buy" class="p-buy" style="background-color:#B1127C">
     <div class="p-grain" aria-hidden="true"></div>
@@ -82,6 +141,75 @@
             <button type="button" role="radio" aria-checked="false" data-flavor="orange-cream" aria-label="Orange Cream"><img src="https://drinkolipop.com/cdn/shop/files/orange-cream-9g-olipop_gallery-image_single-can_new_asset.webp?width=100" alt="" /></button>
             <button type="button" role="radio" aria-checked="false" data-flavor="strawberry-vanilla" aria-label="Strawberry Vanilla"><img src="https://drinkolipop.com/cdn/shop/files/strawberry-vanilla-9g-olipop_gallery-main-image_new_asset.webp?width=100" alt="" /></button>
             <button type="button" role="radio" aria-checked="false" data-flavor="lemon-lime" aria-label="Lemon Lime"><img src="https://drinkolipop.com/cdn/shop/files/lemon-lime-9g-olipop_gallery-image_single-can_new_asset.webp?width=100" alt="" /></button>
+          </div>
+
+          <div class="p-mix" id="mixPicker" hidden>
+            <div class="p-mix__grid">
+              <div class="p-mix-item" data-flavor="blackberry-vanilla">
+                <img src="https://drinkolipop.com/cdn/shop/files/blackberry-vanilla-9g-olipop_gallery-image_single-can_new_asset.webp?width=100" alt="Blackberry Vanilla" />
+                <span class="p-mix-item__name">Blackberry Vanilla</span>
+                <div class="p-mix-item__ctrl">
+                  <button type="button" class="p-mix-item__minus" data-flavor="blackberry-vanilla" aria-label="Remove one Blackberry Vanilla">−</button>
+                  <span class="p-mix-item__count" id="mixCount-blackberry-vanilla">0</span>
+                  <button type="button" class="p-mix-item__plus" data-flavor="blackberry-vanilla" aria-label="Add one Blackberry Vanilla">+</button>
+                </div>
+              </div>
+              <div class="p-mix-item" data-flavor="vintage-cola">
+                <img src="https://drinkolipop.com/cdn/shop/files/vintage-cola-9g-olipop_gallery-image_single-can_new_asset.webp?width=100" alt="Vintage Cola" />
+                <span class="p-mix-item__name">Vintage Cola</span>
+                <div class="p-mix-item__ctrl">
+                  <button type="button" class="p-mix-item__minus" data-flavor="vintage-cola" aria-label="Remove one Vintage Cola">−</button>
+                  <span class="p-mix-item__count" id="mixCount-vintage-cola">0</span>
+                  <button type="button" class="p-mix-item__plus" data-flavor="vintage-cola" aria-label="Add one Vintage Cola">+</button>
+                </div>
+              </div>
+              <div class="p-mix-item" data-flavor="cherry-cola">
+                <img src="https://drinkolipop.com/cdn/shop/files/cherry-cola-9g-olipop_gallery-main-image_new_asset.webp?width=100" alt="Cherry Cola" />
+                <span class="p-mix-item__name">Cherry Cola</span>
+                <div class="p-mix-item__ctrl">
+                  <button type="button" class="p-mix-item__minus" data-flavor="cherry-cola" aria-label="Remove one Cherry Cola">−</button>
+                  <span class="p-mix-item__count" id="mixCount-cherry-cola">0</span>
+                  <button type="button" class="p-mix-item__plus" data-flavor="cherry-cola" aria-label="Add one Cherry Cola">+</button>
+                </div>
+              </div>
+              <div class="p-mix-item" data-flavor="classic-grape">
+                <img src="https://drinkolipop.com/cdn/shop/files/classic-grape-9g-olipop_gallery-image_single-can_new_asset.webp?width=100" alt="Classic Grape" />
+                <span class="p-mix-item__name">Classic Grape</span>
+                <div class="p-mix-item__ctrl">
+                  <button type="button" class="p-mix-item__minus" data-flavor="classic-grape" aria-label="Remove one Classic Grape">−</button>
+                  <span class="p-mix-item__count" id="mixCount-classic-grape">0</span>
+                  <button type="button" class="p-mix-item__plus" data-flavor="classic-grape" aria-label="Add one Classic Grape">+</button>
+                </div>
+              </div>
+              <div class="p-mix-item" data-flavor="orange-cream">
+                <img src="https://drinkolipop.com/cdn/shop/files/orange-cream-9g-olipop_gallery-image_single-can_new_asset.webp?width=100" alt="Orange Cream" />
+                <span class="p-mix-item__name">Orange Cream</span>
+                <div class="p-mix-item__ctrl">
+                  <button type="button" class="p-mix-item__minus" data-flavor="orange-cream" aria-label="Remove one Orange Cream">−</button>
+                  <span class="p-mix-item__count" id="mixCount-orange-cream">0</span>
+                  <button type="button" class="p-mix-item__plus" data-flavor="orange-cream" aria-label="Add one Orange Cream">+</button>
+                </div>
+              </div>
+              <div class="p-mix-item" data-flavor="strawberry-vanilla">
+                <img src="https://drinkolipop.com/cdn/shop/files/strawberry-vanilla-9g-olipop_gallery-main-image_new_asset.webp?width=100" alt="Strawberry Vanilla" />
+                <span class="p-mix-item__name">Strawberry Vanilla</span>
+                <div class="p-mix-item__ctrl">
+                  <button type="button" class="p-mix-item__minus" data-flavor="strawberry-vanilla" aria-label="Remove one Strawberry Vanilla">−</button>
+                  <span class="p-mix-item__count" id="mixCount-strawberry-vanilla">0</span>
+                  <button type="button" class="p-mix-item__plus" data-flavor="strawberry-vanilla" aria-label="Add one Strawberry Vanilla">+</button>
+                </div>
+              </div>
+              <div class="p-mix-item" data-flavor="lemon-lime">
+                <img src="https://drinkolipop.com/cdn/shop/files/lemon-lime-9g-olipop_gallery-image_single-can_new_asset.webp?width=100" alt="Lemon Lime" />
+                <span class="p-mix-item__name">Lemon Lime</span>
+                <div class="p-mix-item__ctrl">
+                  <button type="button" class="p-mix-item__minus" data-flavor="lemon-lime" aria-label="Remove one Lemon Lime">−</button>
+                  <span class="p-mix-item__count" id="mixCount-lemon-lime">0</span>
+                  <button type="button" class="p-mix-item__plus" data-flavor="lemon-lime" aria-label="Add one Lemon Lime">+</button>
+                </div>
+              </div>
+            </div>
+            <p class="p-mix__total"><span id="mixTotal">0</span> / 12 cans selected</p>
           </div>
         </div>
 
@@ -102,6 +230,7 @@
             <div class="p-pill-row" id="packRow" role="radiogroup" aria-label="Pack size">
               <button type="button" role="radio" aria-checked="false" data-pack="1">1 Can</button>
               <button type="button" role="radio" aria-checked="true" class="is-active" data-pack="12">12 Pack</button>
+              <button type="button" role="radio" aria-checked="false" data-pack="mix">Mix 12</button>
             </div>
           </div>
 
@@ -129,6 +258,10 @@
             </div>
             <button type="button" class="p-btn p-btn--big p-buy__add" id="addToCartBtn"><span id="cartLabel">Add to Cart — </span><span id="cartTotal">$35.99</span></button>
           </div>
+          <p class="p-buy__impact">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c2.5 2.7 4 6.3 4 10s-1.5 7.3-4 10c-2.5-2.7-4-6.3-4-10s1.5-7.3 4-10Z"/></svg>
+            1% of this order goes to a cause you pick, at checkout — powered by Beam. B Corp certified.
+          </p>
         </div>
       </div>
     </div>
