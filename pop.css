@@ -179,9 +179,11 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .p-buy__title{font-family:'Anton',Arial,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-0.02em;line-height:.95;font-size:clamp(32px,4.4vw,50px);margin:10px 0 0;color:#fff}
 .p-buy__form>.p-body{margin-top:12px;color:#fff;opacity:.85}
 
-.p-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.p-chip{display:inline-flex;align-items:center;gap:6px;border:2px solid rgba(255,255,255,.6);border-radius:999px;padding:6px 14px 6px 10px;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#fff}
-.p-chip svg{width:14px;height:14px;flex-shrink:0;opacity:.9}
+.p-chips{display:flex;flex-wrap:wrap;margin-top:20px}
+.p-chip{display:inline-flex;align-items:center;gap:7px;padding:0 16px;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;opacity:.9;border-right:1px solid rgba(255,255,255,.3)}
+.p-chip:first-child{padding-left:0}
+.p-chip:last-child{border-right:0}
+.p-chip svg{width:15px;height:15px;flex-shrink:0;opacity:.85}
 
 .p-field{margin-top:22px}
 .p-field>.p-caption{display:block;margin-bottom:10px;color:#fff;opacity:.7}
