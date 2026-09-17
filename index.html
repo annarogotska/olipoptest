@@ -219,16 +219,15 @@
           <p class="p-body" id="buyDesc">Blackberry, crisp apple and a splash of mandarin — layered berry with a smooth vanilla finish.</p>
 
           <div class="p-chips">
-            <span class="p-chip">Non-GMO</span>
-            <span class="p-chip">Vegan</span>
-            <span class="p-chip">Gluten-free</span>
-            <span class="p-chip">B Corp</span>
+            <span class="p-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6 4-10 8-11-1 6-4 10-8 11Z"/><path d="M12 21c0-6-4-10-8-11 1 6 4 10 8 11Z"/><path d="M12 21V9"/></svg>Non-GMO</span>
+            <span class="p-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V12"/><path d="M12 12C12 12 12 7 7 7C7 12 12 12 12 12Z"/><path d="M12 12C12 12 12 7 17 7C17 12 12 12 12 12Z"/></svg>Vegan</span>
+            <span class="p-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v7M12 10c-2 0-3.5 1.5-3.5 3.5S10 17 12 17M12 10c2 0 3.5 1.5 3.5 3.5S14 17 12 17M12 17v4M9 6l-2-2M15 6l2-2M9 14l-2.5 2.5M15 14l2.5 2.5"/><line x1="3" y1="21" x2="21" y2="3"/></svg>Gluten-free</span>
+            <span class="p-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8h2.5a1.75 1.75 0 0 1 0 3.5H10M10 11.5h3a1.75 1.75 0 0 1 0 3.5h-3v-7"/></svg>B Corp</span>
           </div>
 
           <div class="p-field">
             <span class="p-caption">Pack</span>
             <div class="p-pill-row" id="packRow" role="radiogroup" aria-label="Pack size">
-              <button type="button" role="radio" aria-checked="false" data-pack="1">1 Can</button>
               <button type="button" role="radio" aria-checked="true" class="is-active" data-pack="12">12 Pack</button>
               <button type="button" role="radio" aria-checked="false" data-pack="mix">Mix 12</button>
             </div>
@@ -239,12 +238,18 @@
             <div class="p-freq-row" id="freqRow" role="radiogroup" aria-label="Purchase frequency">
               <button type="button" role="radio" aria-checked="true" class="is-active" data-freq="once">
                 <span class="p-freq-row__radio"></span>
-                <span class="p-freq-row__title">One Time</span>
+                <span class="p-freq-row__body">
+                  <span class="p-freq-row__title">One Time</span>
+                  <span class="p-freq-row__perks">Standard shipping · one-off purchase, no commitment</span>
+                </span>
                 <span class="p-freq-row__price" id="priceOnce">$35.99</span>
               </button>
               <button type="button" role="radio" aria-checked="false" data-freq="sub">
                 <span class="p-freq-row__radio"></span>
-                <span class="p-freq-row__title">Subscribe &amp; Save</span>
+                <span class="p-freq-row__body">
+                  <span class="p-freq-row__title">Subscribe &amp; Save</span>
+                  <span class="p-freq-row__perks">Free shipping · skip, swap or cancel anytime · early access to new flavors</span>
+                </span>
                 <span class="p-freq-row__price">$30.59 <s id="priceSubBase">$35.99</s></span>
               </button>
             </div>
