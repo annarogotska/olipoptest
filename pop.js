@@ -421,6 +421,24 @@
     requestAnimationFrame(tick);
   })();
 
+  /* ---------- Stats: reveal on scroll ---------- */
+  (function initStatsReveal() {
+    const targets = document.querySelectorAll(".p-stat-card, .p-stats__art");
+    if (!targets.length) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        window.setTimeout(() => entry.target.classList.add("is-visible"), i * 90);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 });
+
+    targets.forEach((el) => io.observe(el));
+  })();
+
   /* ---------- Newsletter signup ---------- */
   (function initSignup() {
     const form = $("signupForm");
